@@ -10,17 +10,19 @@ import TransactionList from './components/TransactionList';
 const App = () => {
   const [transactionList, setTransactionList] = useState([])
   const [showInput, setShowInput] = useState(false)
+  let balance = 0;
+  transactionList.forEach((transaction) => balance += transaction.import)
 
   return (
 
     <View style={styles.container}>
 
       <Header/>
-      <TransactionList/>
-      <Balance/>
+      <TransactionList transactionList={transactionList}/>
+      <Balance balance={balance}/>
       <Fab setShowInput={setShowInput}/>
-      <StatusBar style="light"/>
-      <TransactionInput style={styles.centeredView} showInput={showInput} setShowInput={setShowInput}/>
+      <StatusBar style="hidden"/>
+      <TransactionInput style={styles.centeredView} showInput={showInput} setShowInput={setShowInput} transactionList={transactionList} setTransactionList={setTransactionList}/>
     </View>
 
   );

@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
         height: 70,
         width: 70,
         borderRadius: 50,
-        backgroundColor: "blue",
+        backgroundColor: "black",
         position: "absolute",
         bottom: 15,
         right: 10,
@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
     },
     textSize: {
         fontSize: 40,
+        color: "white",
     },
 });
 

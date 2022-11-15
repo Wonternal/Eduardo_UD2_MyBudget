@@ -1,9 +1,16 @@
 import { StyleSheet, Text, View } from "react-native";
 
-const TransactionList = () => {
+const TransactionList = ({ transactionList }) => {
     return (
         <View style={styles.transactionListContainer}>
-            <Text>Lista de transacciones</Text>
+            {transactionList.map((transaction) => {
+                return (
+                    <Text>
+                        {" "}
+                        {transaction.description} | {transaction.import}€ | {transaction.fecha}
+                    </Text>
+                );
+            })}
         </View>
     );
 };
