@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, FlatList, Pressable, Image } from "react-native";
+import { StyleSheet, Text, View, FlatList, Pressable, Image, Alert } from "react-native";
 
 const TransactionList = ({ transactionList, setShowEditModal, setEditId, handleOnRemove }) => {
     return (
@@ -15,9 +15,14 @@ const TransactionList = ({ transactionList, setShowEditModal, setEditId, handleO
                         const { id, description, importe, fecha } = transactionData.item;
                         return (
                             <View style={[styles.itemContainer, importe >= 0 ? { backgroundColor: "lightgreen" } : { backgroundColor: "red" }]}>
-                                <Text key={id}>
-                                    {description} | {importe}€
-                                </Text>
+                                <Pressable
+                                    onPress={() => Alert.alert("Datos de transacción:", `Descripción: ${description}\n Importe: ${importe}\n Fecha: ${fecha}`)}
+                                >
+                                    <Text key={id}>
+                                        {description} | {importe}€
+                                    </Text>
+                                </Pressable>
+
                                 <Pressable
                                     style={styles.editButton}
                                     onPress={() => {
@@ -42,7 +47,6 @@ const TransactionList = ({ transactionList, setShowEditModal, setEditId, handleO
 const styles = StyleSheet.create({
     transactionListContainer: {
         flex: 5,
-        backgroundColor: "grey",
         alignItems: "center",
     },
     itemContainer: {

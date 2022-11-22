@@ -16,6 +16,14 @@ const App = () => {
     let balance = 0;
     transactionList.forEach((transaction) => (balance += transaction.importe));
 
+    const getTransactionById = (id) => {
+        let transactionReturn;
+        transactionList.forEach((transaction) => {
+            if (transaction.id === editId) transactionReturn = transaction;
+        });
+        return transactionReturn;
+    };
+
     const handleOnRemove = (id) => {
         const listaActualizada = transactionList.filter((transaction) => {
             if (transaction.id !== id) {
@@ -38,13 +46,17 @@ const App = () => {
                 transactionList={transactionList}
                 setTransactionList={setTransactionList}
             />
-            <EditModal
-                showEditModal={showEditModal}
-                setShowEditModal={setShowEditModal}
-                editId={editId}
-                transactionList={transactionList}
-                setTransactionList={setTransactionList}
-            />
+            {editId !== "" ? (
+                <EditModal
+                    showEditModal={showEditModal}
+                    setShowEditModal={setShowEditModal}
+                    editId={editId}
+                    transactionList={transactionList}
+                    setTransactionList={setTransactionList}
+                    setEditId={setEditId}
+                    getTransactionById={getTransactionById}
+                />
+            ) : null}
             <StatusBar style="hidden" />
         </View>
     );
@@ -53,7 +65,7 @@ const App = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#fff",
+        backgroundColor: "grey",
     },
 
     centeredView: {

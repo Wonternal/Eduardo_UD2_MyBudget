@@ -21,8 +21,8 @@ const TransactionInput = ({ showInput, setShowInput, transactionList, setTransac
                         <TextInput
                             style={styles.inputStyles}
                             placeholder="Importe"
-                            keyboardType="number-pad"
-                            onChangeText={(value) => setImportValue(parseInt(value))}
+                            keyboardType="decimal-pad"
+                            onChangeText={(value) => setImportValue(parseFloat(value.replace(",", ".")))}
                         ></TextInput>
                     </View>
 
@@ -30,11 +30,14 @@ const TransactionInput = ({ showInput, setShowInput, transactionList, setTransac
                         <Pressable
                             style={styles.btnAdd}
                             onPress={() => {
+                                importValue;
                                 setTransactionList([
                                     ...transactionList,
                                     { id: uuid.v4(), description: descriptionValue, importe: importValue, fecha: new Date(Date.now()).toUTCString() },
                                 ]);
                                 setShowInput(false);
+                                setDescriptionValue("");
+                                setImportValue(0);
                             }}
                         >
                             <Text>Ingreso</Text>
@@ -52,6 +55,8 @@ const TransactionInput = ({ showInput, setShowInput, transactionList, setTransac
                                     },
                                 ]);
                                 setShowInput(false);
+                                setDescriptionValue("");
+                                setImportValue(0);
                             }}
                         >
                             <Text>Gasto</Text>
