@@ -11,7 +11,7 @@ const Balance = ({ balance }) => {
 const styles = StyleSheet.create({
     balanceContainer: {
         flex: 1,
-        backgroundColor: "lightgreen",
+        backgroundColor: "green",
         justifyContent: "center",
         alignItems: "center",
     },

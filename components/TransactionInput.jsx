@@ -1,5 +1,6 @@
 import { Modal, Pressable, StyleSheet, Text, View, TextInput } from "react-native";
 import { useState } from "react";
+import uuid from "react-native-uuid";
 
 const TransactionInput = ({ showInput, setShowInput, transactionList, setTransactionList }) => {
     const [descriptionValue, setDescriptionValue] = useState("");
@@ -31,7 +32,7 @@ const TransactionInput = ({ showInput, setShowInput, transactionList, setTransac
                             onPress={() => {
                                 setTransactionList([
                                     ...transactionList,
-                                    { description: descriptionValue, import: importValue, fecha: new Date(Date.now()).toUTCString() },
+                                    { id: uuid.v4(), description: descriptionValue, importe: importValue, fecha: new Date(Date.now()).toUTCString() },
                                 ]);
                                 setShowInput(false);
                             }}
@@ -43,7 +44,12 @@ const TransactionInput = ({ showInput, setShowInput, transactionList, setTransac
                             onPress={() => {
                                 setTransactionList([
                                     ...transactionList,
-                                    { description: descriptionValue, import: importValue * -1, fecha: new Date(Date.now()).toUTCString() },
+                                    {
+                                        id: uuid.v4(),
+                                        description: descriptionValue,
+                                        importe: importValue * -1,
+                                        fecha: new Date(Date.now()).toUTCString(),
+                                    },
                                 ]);
                                 setShowInput(false);
                             }}
