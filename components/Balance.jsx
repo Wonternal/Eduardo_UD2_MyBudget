@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View } from "react-native";
 
-const Balance = () => {
+const Balance = ({ balance }) => {
     return (
-        <View style={styles.balanceContainer}>
-            <Text>Balance €</Text>
+        <View style={balance >= 0 ? styles.balanceContainer : [styles.balanceContainer, { backgroundColor: "red" }]}>
+            <Text style={styles.fontSize30}>{balance}€</Text>
         </View>
     );
 };
@@ -11,9 +11,13 @@ const Balance = () => {
 const styles = StyleSheet.create({
     balanceContainer: {
         flex: 1,
-        backgroundColor: "lightgreen",
+        backgroundColor: "green",
         justifyContent: "center",
         alignItems: "center",
+    },
+
+    fontSize30: {
+        fontSize: 30,
     },
 });
 

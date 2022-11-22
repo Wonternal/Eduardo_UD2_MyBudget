@@ -1,26 +1,65 @@
 import { Modal, Pressable, StyleSheet, Text, View, TextInput } from "react-native";
 import { useState } from "react";
-import uuid from "react-native-uuid";
 
-const TransactionInput = ({ showInput, setShowInput, transactionList, setTransactionList }) => {
+const EditModal = ({ showEditModal, setShowEditModal, editId, transactionList, setTransactionList, setEditId, getTransactionById }) => {
     const [descriptionValue, setDescriptionValue] = useState("");
     const [importValue, setImportValue] = useState(0);
 
+    const handleOnAdd = () => {
+        let transactionListEdited = transactionList.map((transaction) => {
+            if (transaction.id === editId) {
+                transaction.description = descriptionValue;
+                transaction.importe = importValue;
+            }
+            return transaction;
+        });
+        setTransactionList(transactionListEdited);
+        setShowEditModal(false);
+        setDescriptionValue("");
+        setImportValue(0);
+        setEditId("");
+    };
+
+    const handleOnClear = () => {
+        let transactionListEdited = transactionList.map((transaction) => {
+            if (transaction.id === editId) {
+                transaction.description = descriptionValue;
+                transaction.importe = importValue * -1;
+            }
+            return transaction;
+        });
+        setTransactionList(transactionListEdited);
+        setShowEditModal(false);
+        setDescriptionValue("");
+        setImportValue(0);
+        setEditId("");
+    };
+
     return (
-        <Modal animationType="fade" transparent={true} visible={showInput}>
-            <View style={styles.transactionInputContainer}>
+        <Modal animationType="fade" transparent={true} visible={showEditModal}>
+            <View style={styles.editModalContainer}>
                 <View style={styles.inputView}>
                     <View style={styles.closeContainer}>
-                        <Pressable style={{ marginTop: 10, marginRight: 25 }} onPress={() => setShowInput(false)}>
+                        <Pressable
+                            style={{ marginTop: 10, marginRight: 25 }}
+                            onPress={() => {
+                                setShowEditModal(false);
+                                setEditId("");
+                            }}
+                        >
                             <Text style={styles.fontSize24}>X</Text>
                         </Pressable>
                     </View>
 
                     <View style={styles.inputsContainer}>
-                        <TextInput style={styles.inputStyles} placeholder="Descripción" onChangeText={(value) => setDescriptionValue(value)}></TextInput>
                         <TextInput
                             style={styles.inputStyles}
-                            placeholder="Importe"
+                            placeholder={getTransactionById(editId).description}
+                            onChangeText={(value) => setDescriptionValue(value)}
+                        ></TextInput>
+                        <TextInput
+                            style={styles.inputStyles}
+                            placeholder={getTransactionById(editId).importe.toString()}
                             keyboardType="decimal-pad"
                             onChangeText={(value) => setImportValue(parseFloat(value.replace(",", ".")))}
                         ></TextInput>
@@ -30,14 +69,7 @@ const TransactionInput = ({ showInput, setShowInput, transactionList, setTransac
                         <Pressable
                             style={styles.btnAdd}
                             onPress={() => {
-                                importValue;
-                                setTransactionList([
-                                    ...transactionList,
-                                    { id: uuid.v4(), description: descriptionValue, importe: importValue, fecha: new Date(Date.now()).toUTCString() },
-                                ]);
-                                setShowInput(false);
-                                setDescriptionValue("");
-                                setImportValue(0);
+                                handleOnAdd();
                             }}
                         >
                             <Text>Ingreso</Text>
@@ -45,18 +77,7 @@ const TransactionInput = ({ showInput, setShowInput, transactionList, setTransac
                         <Pressable
                             style={styles.btnClear}
                             onPress={() => {
-                                setTransactionList([
-                                    ...transactionList,
-                                    {
-                                        id: uuid.v4(),
-                                        description: descriptionValue,
-                                        importe: importValue * -1,
-                                        fecha: new Date(Date.now()).toUTCString(),
-                                    },
-                                ]);
-                                setShowInput(false);
-                                setDescriptionValue("");
-                                setImportValue(0);
+                                handleOnClear();
                             }}
                         >
                             <Text>Gasto</Text>
@@ -69,7 +90,7 @@ const TransactionInput = ({ showInput, setShowInput, transactionList, setTransac
 };
 
 const styles = StyleSheet.create({
-    transactionInputContainer: {
+    editModalContainer: {
         flex: 1,
         backgroundColor: "rgba(0,0,0,0.7)",
         justifyContent: "center",
@@ -80,6 +101,9 @@ const styles = StyleSheet.create({
         width: "70%",
         backgroundColor: "silver",
         borderRadius: 10,
+    },
+    whiteText: {
+        color: "white",
     },
 
     closeContainer: {
@@ -133,4 +157,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default TransactionInput;
+export default EditModal;

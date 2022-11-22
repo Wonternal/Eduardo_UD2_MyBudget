@@ -1,27 +1,28 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
-const Fab = () => {
+const Fab = ({ setShowInput }) => {
     return (
-        <View style={styles.fabContainer}>
+        <Pressable style={styles.fabContainer} onPress={() => setShowInput(true)}>
             <Text style={styles.textSize}>+</Text>
-        </View>
+        </Pressable>
     );
 };
 
 const styles = StyleSheet.create({
     fabContainer: {
-        height: 50,
-        width: 50,
-        borderRadius: 30,
-        backgroundColor: "blue",
+        height: 70,
+        width: 70,
+        borderRadius: 50,
+        backgroundColor: "black",
         position: "absolute",
-        bottom: 10,
+        bottom: 15,
         right: 10,
         justifyContent: "center",
         alignItems: "center",
     },
     textSize: {
         fontSize: 40,
+        color: "white",
     },
 });
 
