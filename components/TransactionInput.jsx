@@ -11,7 +11,7 @@ const TransactionInput = ({ showInput, setShowInput, transactionList, setTransac
             <View style={styles.transactionInputContainer}>
                 <View style={styles.inputView}>
                     <View style={styles.closeContainer}>
-                        <Pressable style={{ marginTop: 10, marginRight: 25 }} onPress={() => setShowInput(false)}>
+                        <Pressable style={{ marginRight: 10 }} onPress={() => setShowInput(false)}>
                             <Text style={styles.fontSize24}>X</Text>
                         </Pressable>
                     </View>
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
 
     inputStyles: {
         backgroundColor: "white",
-        width: 120,
+        width: "40%",
         height: 25,
         textAlign: "center",
         borderRadius: 5,

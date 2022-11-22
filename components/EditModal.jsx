@@ -41,7 +41,7 @@ const EditModal = ({ showEditModal, setShowEditModal, editId, transactionList, s
                 <View style={styles.inputView}>
                     <View style={styles.closeContainer}>
                         <Pressable
-                            style={{ marginTop: 10, marginRight: 25 }}
+                            style={{ marginRight: 10 }}
                             onPress={() => {
                                 setShowEditModal(false);
                                 setEditId("");
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
 
     inputStyles: {
         backgroundColor: "white",
-        width: 120,
+        width: "40%",
         height: 25,
         textAlign: "center",
         borderRadius: 5,
